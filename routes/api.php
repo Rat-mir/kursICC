@@ -23,14 +23,18 @@ Route::middleware(['auth:sanctum','active','throttle:api'])->group(function() {
     Route::delete('posts/{post}/like',[InteractionController::class,'unlike'])->name('likes.destroy');
     Route::middleware('role:creator,admin')->group(function() {
         Route::apiResource('makers',MakerController::class)->only(['store','update','destroy']);
+        Route::post('makers/{maker}/submit',[MakerController::class,'submit'])->name('makers.submit');
         Route::post('makers/{maker}/assets',[AssetController::class,'store'])->name('assets.store');
         Route::match(['put','patch'],'makers/{maker}/assets/{asset}',[AssetController::class,'update'])->name('assets.update');
         Route::delete('makers/{maker}/assets/{asset}',[AssetController::class,'destroy'])->name('assets.destroy');
     });
     Route::prefix('admin')->name('admin.')->middleware('role:admin')->group(function() {
         Route::get('makers',[MakerController::class,'moderation'])->name('makers.index');
+        Route::post('makers/{maker}/review',[MakerController::class,'review'])->name('makers.review');
+        Route::post('makers/{maker}/hide',[MakerController::class,'hide'])->name('makers.hide');
         Route::get('posts',[PostController::class,'moderation'])->name('posts.index');
         Route::post('posts/{post}/hide',[PostController::class,'hide'])->name('posts.hide');
+        Route::get('statistics',[MakerController::class,'statistics'])->name('statistics');
         Route::get('users',[AdminUserController::class,'index'])->name('users.index');
         Route::patch('users/{user}',[AdminUserController::class,'update'])->name('users.update');
     });
