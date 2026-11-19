@@ -1,6 +1,6 @@
 # Веб-сервис конструктора персонажей. Backend
 
-ICC — Interactive Character Catalog. Серверная часть на Laravel 13, PHP 8.3+ и Laravel Sanctum. Текущий этап: КП 5.
+ICC — Interactive Character Catalog. Серверная часть на Laravel 13, PHP 8.3+ и Laravel Sanctum. Текущий этап: КП 6.
 
 ## Установка
 
@@ -28,6 +28,7 @@ php artisan route:list --path=api
 
 - КП 4: окружение Laravel, Sanctum и проверка подключения к БД
 - КП 5: миграции, модели, связи, фабрики и ресурсы API
+- КП 6: маршруты REST API, контроллеры и сервисы
 
 ## Данные и доступ
 
