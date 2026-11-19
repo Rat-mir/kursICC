@@ -1,6 +1,6 @@
 # Веб-сервис конструктора персонажей. Backend
 
-ICC — Interactive Character Catalog. Серверная часть на Laravel 13, PHP 8.3+ и Laravel Sanctum. Текущий этап: КП 4.
+ICC — Interactive Character Catalog. Серверная часть на Laravel 13, PHP 8.3+ и Laravel Sanctum. Текущий этап: КП 5.
 
 ## Установка
 
@@ -15,7 +15,7 @@ php artisan key:generate
 Создайте базу MySQL, укажите DB_HOST, DB_PORT, DB_DATABASE, DB_USERNAME и DB_PASSWORD в локальном .env. Установите APP_NAME=ICC, APP_LOCALE=ru и APP_URL для своего сервера.
 
 ```sh
-php artisan migrate
+php artisan migrate --seed
 php artisan serve
 php artisan route:list --path=api
 ```
@@ -27,3 +27,10 @@ php artisan route:list --path=api
 ## Этапы
 
 - КП 4: окружение Laravel, Sanctum и проверка подключения к БД
+- КП 5: миграции, модели, связи, фабрики и ресурсы API
+
+## Данные и доступ
+
+Сущности: User, Maker, Asset, Character, Post, Comment, Like. Связь Character–Asset хранится в asset_character с порядком слоёв. Модели, фабрики, миграции и сидеры находятся в database и app/Models; валидация — app/Http/Requests, ответы — app/Http/Resources.
+
+Локальные демонстрационные аккаунты: admin@icc.test, creator@icc.test, user@icc.test; пароль DemoPass123!. Для реального размещения эти пароли нужно заменить.
