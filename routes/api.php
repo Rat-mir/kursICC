@@ -9,6 +9,8 @@ Route::middleware('throttle:login')->group(function() {
 Route::middleware(['optional.auth','throttle:api'])->group(function() {
     Route::apiResource('makers',MakerController::class)->only(['index','show']);
     Route::apiResource('posts',PostController::class)->only(['index','show']);
+});
+Route::middleware(['optional.auth','throttle:media'])->group(function() {
     Route::get('assets/{asset}/image',[AssetController::class,'image'])->name('assets.image');
     Route::get('posts/{post}/image',[PostController::class,'image'])->name('posts.image');
 });
@@ -16,12 +18,12 @@ Route::middleware(['auth:sanctum','active','throttle:api'])->group(function() {
     Route::get('user',[AuthController::class,'user'])->name('api.user');
     Route::post('logout',[AuthController::class,'logout'])->name('api.logout');
     Route::apiResource('characters',CharacterController::class);
-    Route::apiResource('posts',PostController::class)->only(['store','destroy']);
+    Route::apiResource('posts',PostController::class)->only(['store','update','destroy']);
     Route::post('posts/{post}/comments',[InteractionController::class,'comment'])->name('comments.store');
     Route::delete('comments/{comment}',[InteractionController::class,'destroy'])->name('comments.destroy');
     Route::put('posts/{post}/like',[InteractionController::class,'like'])->name('likes.store');
     Route::delete('posts/{post}/like',[InteractionController::class,'unlike'])->name('likes.destroy');
-    Route::middleware('role:creator,admin')->group(function() {
+    Route::group([],function() {
         Route::apiResource('makers',MakerController::class)->only(['store','update','destroy']);
         Route::post('makers/{maker}/submit',[MakerController::class,'submit'])->name('makers.submit');
         Route::post('makers/{maker}/assets',[AssetController::class,'store'])->name('assets.store');
